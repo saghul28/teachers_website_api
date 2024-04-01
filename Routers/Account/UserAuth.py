@@ -1,7 +1,7 @@
-from fastapi import APIRouter, Depends, Header
+from fastapi import APIRouter, Depends, Header, Response
 
 from pydantic import BaseModel, EmailStr
-from FireDatabase import pyreauth
+from FireDatabase import authPyre
 from firebase_admin import auth
 from fastapi import Header, HTTPException
 from fastapi.security import HTTPAuthorizationCredentials,HTTPBearer
@@ -39,8 +39,11 @@ async def login(userlogin: Login):
     email = userlogin.email
     password = userlogin.password
     try:
-        user = pyreauth.sign_in_with_email_and_password(email=email, password=password)
-
+        user = authPyre.sign_in_with_email_and_password(email=email, password=password)
+        response = Response()
+        # Set the token in the response headers
+        user1 = response.headers["Authorization"] = f"Bearer {user['idToken']}"
+        print(response.headers)
         return {"token": user["idToken"],"localId": user["localId"]}
     except Exception as e:
         return {"message": str(e)}

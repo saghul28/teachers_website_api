@@ -2,9 +2,7 @@ from fastapi import APIRouter, Depends, Header, HTTPException
 from pydantic import BaseModel
 from Routers.Account.UserAuth import authenticate_token
 from firebase_admin import firestore, auth
-
 router = APIRouter()
-
 store = firestore.client()
 
 
@@ -22,6 +20,7 @@ async def create_post(post: Post, user: str = Depends(authenticate_token)):
         content = post.content
         author = user.display_name
         uid = user.uid
+
         data = {"title": title, "content": content, "author": author}
         transaction = store.transaction()
         post_id = store.collection("Blogs").document(uid).collection("UserPosts").document().id
@@ -61,7 +60,20 @@ async def get_all_blogs():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error: {e}")
 
-@router.delete(f"/delete_blogs/{id}")
+@router.get("/blogs/{id}")
+def get_blog_by_id(id: str):
+    try:
+        blog_ref = store.collection("All Blogs").document(id)
+        doc = blog_ref.get()
+        if doc.exists:
+            return {"blog": doc.to_dict()}  # Convert Firestore document to a dictionary
+        else:
+            raise HTTPException(status_code=404, detail="Blog not found")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error: {e}")
+
+
+@router.delete("/delete_blogs/{id}")
 async def delete_blogs(id:str,current_user: str = Depends(authenticate_token)):
     try:
         blogs_ref = store.collection("Blogs").document(current_user.uid).collection("UserPosts").document(id)
@@ -70,8 +82,8 @@ async def delete_blogs(id:str,current_user: str = Depends(authenticate_token)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error: {e}")
 
-@router.patch(f"/update_blogs/{id}")
-async def delete_blogs(post: Post,id:str,current_user: str = Depends(authenticate_token)):
+@router.patch("/update_blogs/{id}")
+async def update_blogs(post: Post,id:str,current_user: str = Depends(authenticate_token)):
     try:
         data = {
             "title": post.title,
@@ -82,3 +94,5 @@ async def delete_blogs(post: Post,id:str,current_user: str = Depends(authenticat
         return {"message": "updated successfully"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error: {e}")
+
+

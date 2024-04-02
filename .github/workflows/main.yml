@@ -29,8 +29,8 @@ jobs:
         
     - name: Print environment variables
       run: |
-         echo "FIREBASE_API_KEY: $FIREBASE_API_KEY"
-
+         python FireDatabase.py
+    
 
     - name: Deploy to production
       if: github.ref == 'refs/heads/main'  # Only deploy on main branch

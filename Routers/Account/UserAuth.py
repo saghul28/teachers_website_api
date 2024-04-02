@@ -1,9 +1,7 @@
-from fastapi import APIRouter, Depends, Header, Response
-
+from fastapi import APIRouter, Depends, Header, Response,HTTPException
 from pydantic import BaseModel, EmailStr
 from FireDatabase import authPyre
 from firebase_admin import auth
-from fastapi import Header, HTTPException
 from fastapi.security import HTTPAuthorizationCredentials,HTTPBearer
 
 router = APIRouter()

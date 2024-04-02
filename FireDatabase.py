@@ -35,6 +35,7 @@ firebase_config = {
     "serviceAccount":"Teacher.json"
 }
 
+print("environmern  :"+os.getenv("FIREBASE_API_KEY"))
 
 firebase = pyrebase.initialize_app(firebase_config)
 authPyre = firebase.auth()

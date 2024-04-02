@@ -24,7 +24,7 @@ load_dotenv()
 
 
 firebase_config = {
-    "apiKey": os.environ["FIREBASE_API_KEY"],
+    "apiKey": os.getenv("FIREBASE_API_KEY"),
     "authDomain": os.getenv("FIREBASE_AUTH_DOMAIN"),
     "databaseURL": os.getenv("FIREBASE_DATABASE_URL"),
     "projectId": os.getenv("FIREBASE_PROJECT_ID"),

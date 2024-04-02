@@ -1,27 +1,21 @@
-# # pyrebase
-# import pyrebase
-# import os
-# firebase_config = {
-#     "apiKey": "AIzaSyAXO3nXS6mvWNmMMQzBDc1w5GpgEqaVZf0",
-#     "authDomain": "teacherapi-6b000.firebaseapp.com",
-#     "databaseURL": "https://teacherapi-6b000-default-rtdb.firebaseio.com",
-#     "projectId": "teacherapi-6b000",
-#     "storageBucket": "teacherapi-6b000.appspot.com",
-#     "messagingSenderId": "850831879102",
-#     "appId": "1:850831879102:web:770410ce0bcdd7fa50e7ef",
-#     "measurementId": "G-J4Y7FS6SRC",
-#     "serviceAccount": "Teacher.json"
-# }
-# firebase = pyrebase.initialize_app(firebase_config)
-#
-# authPyre = firebase.auth()
 import pyrebase
 from dotenv import load_dotenv
 import os
-
-# Load environment variables from .env file
 load_dotenv()
 
+config = {
+    "type": os.getenv("TYPE"),
+    "project_id": os.getenv("PROJECT_ID"),
+    "private_key_id": os.getenv("PRIVATE_KEY_ID"),
+    "private_key": os.getenv("PRIVATE_KEY"),
+    "client_email": os.getenv("CLIENT_EMAIL"),
+    "client_id": os.getenv("CLIENT_ID"),
+    "auth_uri": os.getenv("AUTH_URI"),
+    "token_uri": os.getenv("TOKEN_URI"),
+    "auth_provider_x509_cert_url": os.getenv("AUTH_PROVIDER_X509_CERT_URL"),
+    "client_x509_cert_url": os.getenv("CLIENT_X509_CERT_URL"),
+    "universe_domain": os.getenv("UNIVERSE_DOMAIN")
+}
 
 firebase_config = {
     "apiKey": os.getenv("FIREBASE_API_KEY"),
@@ -32,10 +26,8 @@ firebase_config = {
     "messagingSenderId": os.getenv("FIREBASE_MESSAGING_SENDER_ID"),
     "appId": os.getenv("FIREBASE_APP_ID"),
     "measurementId": os.getenv("FIREBASE_MEASUREMENT_ID"),
-    "serviceAccount":"Teacher.json"
+    "serviceAccount":os.getenv("FIREBASE_SERVICE_ACCOUNT")
 }
-
-print("environmern  :"+os.getenv("FIREBASE_API_KEY"))
-
 firebase = pyrebase.initialize_app(firebase_config)
 authPyre = firebase.auth()
+

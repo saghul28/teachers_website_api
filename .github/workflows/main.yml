@@ -11,8 +11,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
-
+      uses: actions/checkout@v2 
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
@@ -29,7 +28,8 @@ jobs:
         
     - name: Print environment variables
       run: |
-         echo "FIREBASE_API_KEY: $FIREBASE_API_KEY"
+         echo "FIREBASE_API_KEY: $FIREBASE_API_KEY
+"
 
     - name: Deploy to production
       if: github.ref == 'refs/heads/main'  # Only deploy on main branch

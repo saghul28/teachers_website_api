@@ -1,6 +1,8 @@
 import pyrebase
 from dotenv import load_dotenv
 import os
+import firebase_admin
+from firebase_admin import credentials
 load_dotenv()
 
 config = {
@@ -16,6 +18,10 @@ config = {
     "client_x509_cert_url": os.getenv("CLIENT_X509_CERT_URL"),
     "universe_domain": os.getenv("UNIVERSE_DOMAIN")
 }
+cred = credentials.Certificate(config)
+firebase_admin.initialize_app(cred)
+
+print(os.environ.get("PRIVATE_KEY"))
 
 firebase_config = {
     "apiKey": os.getenv("FIREBASE_API_KEY"),

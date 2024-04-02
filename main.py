@@ -1,13 +1,3 @@
-import firebase_admin
-from firebase_admin import credentials
-from FireDatabase import config
-
-def initialize_firebase():
-    cred = credentials.Certificate(config)
-    firebase_admin.initialize_app(cred)
-
-initialize_firebase()
-
 from fastapi import FastAPI
 from Routers.Account import UserAuth
 from Routers.Blog import blog, comments

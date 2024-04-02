@@ -43,7 +43,7 @@ async def login(userlogin: Login):
         response = Response()
         # Set the token in the response headers
         user1 = response.headers["Authorization"] = f"Bearer {user['idToken']}"
-        print(response.headers)
+
         return {"token": user["idToken"],"localId": user["localId"]}
     except Exception as e:
         return {"message": str(e)}

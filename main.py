@@ -4,7 +4,7 @@ def initialize_firebase():
     cred = credentials.Certificate("Teacher.json")
     firebase_admin.initialize_app(cred)
 
-initialize_firebase()  # Call initialize_firebase before using Firebase components
+initialize_firebase()
 
 from fastapi import FastAPI
 from Routers.Account import UserAuth
@@ -17,7 +17,9 @@ app.include_router(UserAuth.router, prefix="/user", tags=["User"])
 app.include_router(blog.router, prefix="/blog", tags=["blog"])
 app.include_router(comments.router, prefix="/blog", tags=["comments"])
 
-# cors
+
+
+# CORS settings
 app.add_middleware(
     CORSMiddleware,
     allow_origins=['*'],  # Allow requests from all origins
@@ -25,7 +27,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 @app.get("/")
 def home():

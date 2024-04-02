@@ -26,6 +26,10 @@ jobs:
     - name: Run tests
       run: |
         # Add commands to run your tests here
+        
+    - name: Print environment variables
+      run: |
+         echo "FIREBASE_API_KEY: $FIREBASE_API_KEY"
 
     - name: Deploy to production
       if: github.ref == 'refs/heads/main'  # Only deploy on main branch

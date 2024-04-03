@@ -32,6 +32,7 @@ cred = credentials.Certificate({
     "client_x509_cert_url": os.getenv("CLIENT_X509_CERT_URL"),
     "universe_domain": os.getenv("UNIVERSE_DOMAIN")
 })
+print(config)
 firebase_admin.initialize_app(cred)
 
 firebase_config = {

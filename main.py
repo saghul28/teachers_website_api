@@ -2,7 +2,9 @@ from fastapi import FastAPI
 from Routers.Account import UserAuth
 from Routers.Blog import blog, comments
 from fastapi.middleware.cors import CORSMiddleware
+from FireDatabase import config
 
+print(config)
 app = FastAPI()
 
 app.include_router(UserAuth.router, prefix="/user", tags=["User"])

@@ -20,7 +20,7 @@ config = {
 }
 
 cred = credentials.Certificate(config)
-print(os.getenv("PRIVATE_KEY").replace("\\n", "\n"))
+
 firebase_admin.initialize_app(cred)
 
 firebase_config = {
